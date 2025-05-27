@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card mt-3">
+    <div class="card-header d-flex align-items-center justify-content-between">
+        <h1>Ma'lumotnomalar</h1>
+        <a href="{% url 'reference_create' %}" class="btn btn-primary">Yangi Ma'lumotnoma</a>
+    </div>
+    <div class="card-body">
+
+
+            <div class="col-md mb-4 mb-md-0">
+                  <small class="text-light fw-semibold">Ma'lumotnomalar</small>
+                  <div class="accordion mt-3" id="accordionExample">
+                    <div class="card accordion-item">
+                      <h2 class="accordion-header" id="headingOne">
+                        <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionOne" aria-expanded="false" aria-controls="accordionOne">
+                          Kitob turi
+                        </button>
+                      </h2>
+
+                      <div id="accordionOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample" style="">
+                        <div class="accordion-body">
+                          {% for category in book_category %}
+                          <div class="d-flex align-items-center justify-content-between">
+                                 <div class="d-flex justify-content-between align-items-center mb-2">
+                                 <h5 class="mb-0">{{ category.value }}</h5>
+                     <div>
+                                <a href="{% url 'reference_update' category.pk  %}" class="btn btn-sm btn-warning me-1">
+                                      <i class="bx bxs-edit"></i>
+                                      
+                                </a>
+                                 <a href="{% url 'reference_delete' category.pk %}" class="btn btn-sm btn-danger">
+                                      <i class="bx bxs-trash"></i>
+                                 </a>
+                             </div>
+                    </div>
+                  </div>
+                  
+{% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card accordion-item">
+                      <h2 class="accordion-header" id="headingTwo">
+                        <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionTwo" aria-expanded="false" aria-controls="accordionTwo">
+                          Jinsi
+                        </button>
+                      </h2>
+                      <div id="accordionTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                         {% for gender in genders %}
+                          <div class="d-flex align-items-center justify-content-between">
+                                 <div class="d-flex justify-content-between align-items-center mb-2">
+                                 <h5 class="mb-0">{{ gender.value }}</h5>
+                     <div>
+                                <a href="{% url 'reference_update' gender.pk  %}" class="btn btn-sm btn-warning me-1">
+                                      <i class="bx bxs-edit"></i>
+                                </a>
+                                 <a href="{% url 'reference_delete' gender.pk %}" class="btn btn-sm btn-danger">
+                                      <i class="bx bxs-trash"></i>
+                                 </a>
+                             </div>
+                    </div>
+                  </div>
+                  
+{% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card accordion-item">
+                      <h2 class="accordion-header" id="headingThree">
+                        <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionThree" aria-expanded="false" aria-controls="accordionThree">
+                          Chiqim
+                        </button>
+                      </h2>
+                      <div id="accordionThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          Oat cake toffee chocolate bar jujubes. Marshmallow brownie lemon drops cheesecake. Bonbon
+                          gingerbread marshmallow sweet jelly beans muffin. Sweet roll bear claw candy canes oat cake
+                          dragée caramels. Ice cream wafer danish cookie caramels muffin.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            </div>
+        </div>
+{% endblock content %}

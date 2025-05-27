@@ -62,7 +62,7 @@
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
-            <a href="index.html" class="app-brand-link">
+            <a href="{% url 'home' %}" class="app-brand-link">
               <span class="app-brand-logo demo">
                 <svg
                   width="25"
@@ -131,11 +131,51 @@
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
             <li class="menu-item ">
-              <a href="index.html" class="menu-link">
+              <a href="{% url 'home' %}" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-book"></i>
                 <div data-i18n="Analytics">Kitoblar</div>
               </a>
             </li>
+            <li class="menu-item ">
+              <a href="index.html" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-cart"></i>
+                <div data-i18n="Analytics">Xarid</div>
+              </a>
+            </li>
+            <li class="menu-item ">
+              <a href="index.html" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-money"></i>
+                <div data-i18n="Analytics">Sotuv</div>
+              </a>
+            </li>
+             <li class="menu-item ">
+              <a href="index.html" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-group"></i>
+                <div data-i18n="Analytics">Xodimlar</div>
+              </a>
+            </li>
+             <li class="menu-item ">
+              <a href="index.html" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-wallet"></i>
+                <div data-i18n="Analytics">Chiqim</div>
+              </a>
+            </li>
+             <li class="menu-item ">
+              <a href="{% url 'author_view' %}" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-book-content"></i>
+                <div data-i18n="Analytics">Mualliflar</div>
+              </a>
+            </li>
+             <li class="menu-item ">
+              <a href="{% url 'reference_view' %}" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-archive"></i>
+                <div data-i18n="Analytics">Malumotnoma</div>
+              </a>
+            </li>
+
+
+
+
 
           
              
@@ -166,12 +206,18 @@
               <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
                   <i class="bx bx-search fs-4 lh-0"></i>
+                  <form action="" method="get" class="d-flex gap-2 align-items-center">
                   <input
+                    name="search"
                     type="text"
                     class="form-control border-0 shadow-none"
                     placeholder="Qidiruv..."
-                    aria-label="Qidiruv..."
+                    aria-label="Search..."
+                    value="{{request.GET.search}}"
                   />
+                  
+                  <button type="submit" class="btn btn-primary">Qidirish</button>
+                  </form>
                 </div>
               </div>
               <!-- /Search -->
@@ -186,6 +232,7 @@
             
               </ul>
             </div>
+            <button class="btn btn-danger">Chiqish</button>
           </nav>
 
           <!-- / Navbar -->
@@ -194,9 +241,10 @@
                
                 
 
-            {% block content %}
+          {% block content %}
             
-            {% endblock content %}
+          
+          {% endblock content %}
 
 
             <div class="content-backdrop fade"></div>

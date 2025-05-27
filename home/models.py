@@ -3,8 +3,14 @@ from django.db import models
 # Create your models here.
 
 class References(models.Model):
-    type = models.CharField(max_length=255)
-    value = models.CharField(max_length=255)
+    TYPE_CHOICES = [
+        ('kitob_turi', 'kitob_turi'),
+        ('jinsi', 'jinsi'),
+        ('chiqim_turi', 'chiqim_turi'),
+    ]
+
+    type = models.CharField(max_length=255,choices=TYPE_CHOICES, verbose_name="Malumotnoma turi")
+    value = models.CharField(max_length=255,verbose_name="Ma'lumotnoma qiymati")
     is_deleted = models.BooleanField(default=False)
 
     class Meta:
@@ -36,7 +42,7 @@ class Book(models.Model):
     author = models.ForeignKey(to=Author, on_delete=models.CASCADE)
     category = models.ForeignKey(to=References, on_delete=models.CASCADE, related_name="book_category_references")
     description = models.TextField()
-    created_at = models.DateField(auto_now_add=True)
+    created_at = models.DateField()
     is_deleted = models.BooleanField(default=False)
 
     class Meta:
@@ -52,7 +58,7 @@ class Expence(models.Model):
     quantity = models.IntegerField()
     total_price = models.FloatField()
     description = models.TextField()
-    created_at = models.DateField(auto_now_add=True)
+    created_at = models.DateField()
     is_deleted = models.BooleanField(default=False)
 
     class Meta:
@@ -68,7 +74,7 @@ class Sell(models.Model):
     quantity = models.IntegerField(verbose_name="nechtaligini kiriting")
     total_price = models.FloatField()
     description = models.TextField()
-    created_at = models.DateField(auto_now_add=True)
+    created_at = models.DateField()
     is_deleted = models.BooleanField(default=False)
 
 
@@ -83,9 +89,9 @@ class Staff(models.Model):
     full_name = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=255)
     email = models.CharField(max_length=2255)
-    birthdate = models.DateField(auto_now_add=True)
+    birthdate = models.DateField()
     gender  = models.ForeignKey(to=References, on_delete=models.CASCADE, related_name="Staff_gender_references")
-    created_at = models.DateField(auto_now_add=True)
+    created_at = models.DateField()
     balance = models.FloatField(verbose_name="balansni kiriting")
     is_deleted = models.BooleanField(default=False)
 
@@ -101,7 +107,7 @@ class Staff_work(models.Model):
     staff = models.ForeignKey(to=Staff, on_delete=models.CASCADE,  related_name="staffwork_staff_staff")
     price = models.FloatField(verbose_name="narxi")
     decription = models.TextField(verbose_name="tavsif")
-    created_at = models.DateField(auto_now_add=True)
+    created_at = models.DateField()
     is_deleted = models.BooleanField(default=False)
 
 
@@ -115,7 +121,7 @@ class Staff_work(models.Model):
 class Staff_payment(models.Model):
      staff = models.ForeignKey(to=Staff, on_delete=models.CASCADE, related_name="staffpayment_staff_staff")
      price = models.FloatField(verbose_name="narxi")
-     created_at = models.DateField(auto_now_add=True)
+     created_at = models.DateField()
      is_deleted = models.BooleanField(default=False)
 
 
@@ -123,5 +129,5 @@ class output(models.Model):
     type = models.ForeignKey(to=References, on_delete=models.CASCADE, related_name="output_type_References")
     price = models.FloatField(verbose_name="narxi")
     decription = models.TextField(verbose_name="tavsif")
-    created_at = models.DateField(auto_now_add=True)
+    created_at = models.DateField()
     is_deleted = models.BooleanField(default=False)
