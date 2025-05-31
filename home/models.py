@@ -41,7 +41,9 @@ class Book(models.Model):
     image = models.ImageField(upload_to='media')
     author = models.ForeignKey(to=Author, on_delete=models.CASCADE)
     category = models.ForeignKey(to=References, on_delete=models.CASCADE, related_name="book_category_references")
-    description = models.TextField()
+    quantity = models.IntegerField(default=0)
+    price = models.FloatField
+    description = models.TextField(blank=True, null=True )
     created_at = models.DateField()
     is_deleted = models.BooleanField(default=False)
 
@@ -50,6 +52,7 @@ class Book(models.Model):
 
     def __str__(self):
         return self.name
+    
 
 
 class Expence(models.Model):
@@ -65,7 +68,7 @@ class Expence(models.Model):
         db_table = "Expence"
 
     def __str__(self):
-        return self.price
+        return self.book
 
 
 class Sell(models.Model):
