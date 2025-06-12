@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="card mt-3">
+    <div class="card-header d-flex align-items-center justify-content-between d-flex-column">
+        <h1>Xaridlar</h1>
+        <a href="{% url 'expence_create' %}" class="btn btn-primary">Xarid qo'shish</a>
+    </div>
+
+    <div class="card-body">
+        <table class="table table-hover d-flex-column">
+            <tr>
+                <th>#</th>
+                <th>Kitob Nomi</th>
+                <th>Narxi</th>
+                <th>Miqdori</th>
+                <th>Jami summa</th>
+                <th>Sana</th>
+                <th>Amallar</th>
+            </tr>
+            {% if expences %}
+              
+            
+            {% for expence in expences %}
+            <tr class="n">
+                  <td>{{forloop.counter}}</td>
+                  <td>{{expence.book}}</td>
+                  <td>{{expence.price}}</td>
+                  <td>{{expence.quantity}}</td>
+                  <td>{{expence.total_price}}</td>
+                  <td>{{expence.created_at|date:'d-m-y'}}</td>
+                  <td>
+                    <a href="" class="btn btn-sm btn-primary">
+                        <i class="bx bxs-show"></i>
+                    </a>
+                    <a href="{% url 'expence_update' expence.pk %}" class="btn btn-sm btn-warning">
+                        <i class="bx bxs-edit"></i>
+                    </a>
+                    <a href="{% url 'expence_delete' expence.pk %}" class="btn  btn-sm btn-danger ">
+                        <i class="bx bxs-trash"></i>
+                    </a>
+                  </td>
+                  
+                </tr>
+                {% endfor %}
+            {% else %}            
+            <tr>
+                <td colspan="8" class="text-center">Xaridlar mavjud emas</td>
+            </tr>
+
+            {% endif %}
+        </table>
+    </div>
+</div>
+ 
+{% endblock content %}

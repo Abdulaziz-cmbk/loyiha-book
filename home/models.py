@@ -42,14 +42,14 @@ class Book(models.Model):
     author = models.ForeignKey(to=Author, on_delete=models.CASCADE)
     category = models.ForeignKey(to=References, on_delete=models.CASCADE, related_name="book_category_references")
     quantity = models.IntegerField(default=0)
-    price = models.FloatField
+    price = models.FloatField()
     description = models.TextField(blank=True, null=True )
-    created_at = models.DateField()
+    created_at = models.DateField(auto_now_add=True)
     is_deleted = models.BooleanField(default=False)
 
     class Meta:
         db_table = "Book"
-
+ 
     def __str__(self):
         return self.name
     
@@ -60,33 +60,32 @@ class Expence(models.Model):
     price = models.FloatField()
     quantity = models.IntegerField()
     total_price = models.FloatField()
-    description = models.TextField()
-    created_at = models.DateField()
+    description = models.TextField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     is_deleted = models.BooleanField(default=False)
 
     class Meta:
         db_table = "Expence"
 
     def __str__(self):
-        return self.book
+        return self.book.name
+
 
 
 class Sell(models.Model):
-    book = models.ForeignKey(to=Book, on_delete=models.CASCADE, related_name="sell_book_book")
-    price = models.FloatField(verbose_name="narxini kiriting")
-    quantity = models.IntegerField(verbose_name="nechtaligini kiriting")
+    book = models.ForeignKey(to=Book, on_delete=models.CASCADE, related_name="book_sell")
+    price = models.FloatField()
+    quantity = models.IntegerField()
     total_price = models.FloatField()
-    description = models.TextField()
-    created_at = models.DateField()
+    description = models.TextField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     is_deleted = models.BooleanField(default=False)
-
 
     class Meta:
         db_table = "Sell"
 
     def __str__(self):
-        return self.quantity
-
+        return self.book.name
 
 class Staff(models.Model):
     full_name = models.CharField(max_length=255)

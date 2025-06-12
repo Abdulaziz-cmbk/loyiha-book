@@ -1,22 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-<div class="card">
-    <div class="card-header">
-        <h2>Yangi Muallif qo'shish</h2>
+<div class="card mt-3">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h3>Kitoblar</h3>
+        <a href="{% url 'book_create' %}" class="btn btn-primary">Kitob qo'shish</a>
     </div>
     <div class="card-body">
-        <form action="" method="POST">
-            {% csrf_token %}
-            {{ forms }}
-            
-            <div class="mt-2 d-flex align-items-start justify-content-end gap-3">
-                <a href="{% url 'author_view' %}" class="btn btn-secondary">Bekor qilish</a>
-                <button type="submit" class="btn btn-primary">Saqlash</button>
-            </div>
-        </form>
+        {% for book in books %}
+        <div class="card">
+            <img src="" alt="">
+            <h4>{{ book.name }}</h4>
+        </div>
+        {% endfor %}
     </div>
 </div>
-
 {% endblock content %}

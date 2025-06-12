@@ -15,4 +15,20 @@ urlpatterns = [
     path('reference/create', views.reference_create, name='reference_create'),
     path('reference/update/<int:pk>', views.reference_update, name='reference_update'),
     path('reference/delete/<int:pk>', views.reference_delete, name='reference_delete'),
+
+    #book
+    path("book/create",views.book_create, name="book_create"),
+
+    #expence
+    path("expence", views.expence_view, name='expence_view'),
+    path('expence/update/<int:pk>', views.expence_update, name='expence_update'),
+    path('expence/delete/<int:pk>', views.expence_delete, name='expence_delete'),
+    path("expence/create",views.expence_create, name="expence_create"),
+    
+    #sell
+    path('sell', views.sell_view, name='sell_view'),
+    path('sell/update/<int:pk>', views.sell_update, name='sell_update'),
+    path('sell/delete/<int:pk>', views.sell_delete, name='sell_delete'),
+    
 ]
+ 

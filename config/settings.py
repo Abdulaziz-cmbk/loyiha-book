@@ -118,6 +118,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / os.path.join('static')]
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'  # yoki media papkangiz joylashgan joy
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
