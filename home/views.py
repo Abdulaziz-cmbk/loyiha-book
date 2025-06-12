@@ -196,3 +196,18 @@ def sell_delete(request, pk):
     sells.is_deleted = True
     sells.save()
     return redirect('sell_view')
+
+
+def sell_create(request):
+
+    if request.method == "POST":
+        forms = SellForms(request.POST, request.FILES)
+        if forms.is_valid():
+            forms.save()
+            return redirect('sell_view')
+    else:
+        forms = SellForms()
+    context = {
+        "forms": forms
+    }
+    return render(request, 'sell/sell_create.html', context=context)

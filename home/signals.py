@@ -1,10 +1,10 @@
-from django.dispatch import receiever
+from django.dispatch import receiver
 from django.db.models.signals import post_save, post_delete
 from .models import Expence, Book, Sell
 
 
-@receiever([[post_save, post_delete]], signal=Expence)
-@receiever([[post_save, post_delete]], signal=Sell)
+@receiver([post_save, post_delete], sender=Expence)
+@receiver([post_save, post_delete], sender=Sell)
 def book_quantity_signal(sender, instance, **kwargs):
     book = Book.objects.get(name=instance.book.name)
     expences = Expence.objects.filter(book=book, is_deleted=False)

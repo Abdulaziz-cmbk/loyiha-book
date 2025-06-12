@@ -126,7 +126,7 @@ class SellForms(forms.ModelForm):
             'total_price': forms.NumberInput(attrs={
                 'class': 'form-control',
                 'step': '0.01',
-                'readonly': True,  # Foydalanuvchi o'zgartirmasligi uchun
+                'readonly': False,  # Foydalanuvchi o'zgartirmasligi uchun
                 'placeholder': 'Jami narx (avtomatik hisoblanadi)'
             }),
             'description': forms.Textarea(attrs={
