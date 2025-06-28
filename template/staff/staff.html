@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center"> {# d-flex, justify-content-between, align-items-center qo'shildi #}
+        <h3 class="card-title mb-0">Xodimlar</h3> {# mb-0 qo'shildi sarlavhaning pastki marginini olib tashlash uchun #}
+        <a href="" class="btn btn-primary">yangi xodim</a> {# URL manzil qo'shildi #}
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">TO'LIQ ISM</th> {# Modeldagi full_name ga moslab o'zgartirildi #}
+                    <th scope="col">TELEFON</th> {# Modeldagi phone_number ga moslab o'zgartirildi #}
+                    <th scope="col">EMAIL</th> {# Modeldagi email ga moslab o'zgartirildi #}
+                    <th scope="col">JINSI</th> {# Modeldagi gender ga moslab qoldirildi #}
+                    <th scope="col">TUG'ILGAN SANA</th> {# Modeldagi birthdate ga moslab qo'shildi #}
+                    <th scope="col">AMALLAR</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for staff in staffs %}
+                <tr>
+                    <td>{{ forloop.counter }}</td> {# # ustuni uchun forloop.counter qo'shildi #}
+                    <td>{{ staff.full_name }}</td> {# Modeldagi full_name ni ko'rsatish #}
+                    <td>{{ staff.phone_number }}</td> {# Modeldagi phone_number ni ko'rsatish #}
+                    <td>{{ staff.email }}</td> {# Modeldagi email ni ko'rsatish #}
+                    <td>{{ staff.gender.name }}</td> {# Gender ForeignKey bo'lgani uchun .name orqali nomini olish #}
+                    <td>{{ staff.birthdate|date:"Y-m-d" }}</td> {# Tug'ilgan sanani formatlash #}
+                    <td>
+                        <a href="{% url 'staff_update' staff.pk %}" class="btn btn-sm btn-warning">
+                        <i class="bx bxs-edit"></i>
+                    </a>
+                      <a href="{% url 'staff_delete' staff.pk %}" class="btn  btn-sm btn-danger ">
+                        <i class="bx bxs-trash"></i>
+                    </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<h2 class="text-center my-4">Xodim Tolovi va Ish Jadvali</h2>
+
+<ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="payment-tab" data-bs-toggle="tab" data-bs-target="#payment" type="button" role="tab" aria-controls="payment" aria-selected="true">Xodim Tolovi</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="work-tab" data-bs-toggle="tab" data-bs-target="#work" type="button" role="tab" aria-controls="work" aria-selected="false">Qilgan Ish</button>
+    </li>
+</ul>
+
+<div class="tab-content" id="myTabContent">
+    {# Xodim Tolovi tabining tarkibi #}
+    <div class="tab-pane fade show active" id="payment" role="tabpanel" aria-labelledby="payment-tab">
+        <div class="card">
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">ISMI</th>
+                            <th scope="col">TO'LOV MEBLAG'I</th>
+                            <th scope="col">TO'LOV SANASI</th>
+                            {# Agar Staff_payment modelida boshqa maydonlar bo'lsa, bu yerga qo'shishingiz mumkin #}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for staff_payment in staff_payments %} {# `staff_payments` kontekst o'zgaruvchisi deb faraz qilinadi #}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ staff_payment.staff.full_name }}</td> {# Staff modelidagi full_name orqali #}
+                            <td>{{ staff_payment.price }}</td>
+
+                            <td>{{ staff_payment.created_at|date:"Y-m-d" }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center">Hali to'lovlar mavjud emas.</td>
+                            
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {# Qilgan Ish tabining tarkibi #}
+    <div class="tab-pane fade" id="work" role="tabpanel" aria-labelledby="work-tab">
+        <div class="card">
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">ISMI</th>
+                            <th scope="col">ISH NARXI</th> {# Staff_work modelidagi price uchun #}
+                            <th scope="col">TAVSIF</th> {# Staff_work modelidagi decription uchun #}
+                            <th scope="col">SANASI</th> {# Staff_work modelidagi created_at uchun #}
+                            {# Agar Staff_work modelida boshqa maydonlar bo'lsa, bu yerga qo'shishingiz mumkin #}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for work in staff_works %} {# `staff_works` kontekst o'zgaruvchisi deb faraz qilinadi #}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ work.staff.full_name }}</td> {# Staff modelidagi full_name orqali #}
+                            <td>{{ work.price }}</td>
+                            <td>{{ work.decription|default:"N/A" }}</td> {# Agar tavsif bo'lmasa "N/A" ko'rsatish #}
+                            <td>{{ work.created_at|date:"Y-m-d" }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center">Hali qilingan ishlar mavjud emas.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

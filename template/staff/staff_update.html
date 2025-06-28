@@ -4,15 +4,15 @@
 
 <div class="card">
     <div class="card-header">
-        <h2>Yangi Muallif qo'shish</h2>
+        <h2>Xodim malumotlarni yangilash</h2>
     </div>
     <div class="card-body">
-        <form action="" method="POST" enctype="multipart/form-data">
+        <form action="" method="POST">
             {% csrf_token %}
             {{ forms }}
             
             <div class="mt-2 d-flex align-items-start justify-content-end gap-3">
-                <a href="{% url 'author_view' %}" class="btn btn-secondary">Bekor qilish</a>
+                <a href="{% url 'staff_view' %}" class="btn btn-secondary">Bekor qilish</a>
                 <button type="submit" class="btn btn-primary">Saqlash</button>
             </div>
         </form>

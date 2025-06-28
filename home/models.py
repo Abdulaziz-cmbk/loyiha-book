@@ -36,6 +36,8 @@ class Author(models.Model):
 
 
 
+
+
 class Book(models.Model):
     name = models.CharField(max_length=255)
     image = models.ImageField(upload_to='media')
@@ -104,20 +106,19 @@ class Staff(models.Model):
     def __str__(self):
         return self.full_name
 
-
 class Staff_work(models.Model):
     staff = models.ForeignKey(to=Staff, on_delete=models.CASCADE,  related_name="staffwork_staff_staff")
     price = models.FloatField(verbose_name="narxi")
-    decription = models.TextField(verbose_name="tavsif")
+    decription = models.TextField(null=True,blank=True,verbose_name="tavsif")
     created_at = models.DateField()
     is_deleted = models.BooleanField(default=False)
+
 
 
     class Meta:
         db_table = "Staff_work"
 
-    def __str__(self):
-        return self.price
+
 
 
 class Staff_payment(models.Model):
@@ -127,9 +128,16 @@ class Staff_payment(models.Model):
      is_deleted = models.BooleanField(default=False)
 
 
-class output(models.Model):
+class Output(models.Model):
     type = models.ForeignKey(to=References, on_delete=models.CASCADE, related_name="output_type_References")
     price = models.FloatField(verbose_name="narxi")
-    decription = models.TextField(verbose_name="tavsif")
+    decription = models.TextField(null=True,blank=True,verbose_name="tavsif")
     created_at = models.DateField()
     is_deleted = models.BooleanField(default=False)
+    
+    class Meta:
+        db_table = "Output"
+
+    def __str__(self):
+        return self.type
+

@@ -135,3 +135,35 @@ class SellForms(forms.ModelForm):
                 'placeholder': 'Qo\'shimcha izoh yozing'
             }),
         }
+        
+class StaffForm(forms.ModelForm):
+    class Meta:
+        model = Staff
+        fields = '__all__'
+        widgets = {
+            'full_name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'To‘liq ismini kiriting'
+            }),
+            'phone_number': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Telefon raqamini kiriting'
+            }),
+            'email': forms.EmailInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Email manzilini kiriting'
+            }),
+            'birthdate': forms.DateInput(attrs={
+                'class': 'form-control',
+                'type': 'date'
+            }),
+            'gender': forms.Select(attrs={
+                'class': 'form-control'
+            }),
+            'created_at': forms.DateInput(attrs={
+                'class': 'form-control',
+                'type': 'date'
+            }),
+        }
+        
+        

@@ -31,5 +31,14 @@ urlpatterns = [
     path('sell/delete/<int:pk>', views.sell_delete, name='sell_delete'),
     path("sell/create",views.sell_create, name="sell_create"),
     
+    #staff
+    
+    path('staff', views.staff_view, name='staff_view'),
+    path('staff/update/<int:pk>', views.staff_update, name='staff_update'),
+    path('staff/delete/<int:pk>', views.staff_delete, name='staff_delete'),
+    
+    #income_calc
+    path('income_calc/', views.income_calc_view, name='income_calc'),
+    
 ]
  

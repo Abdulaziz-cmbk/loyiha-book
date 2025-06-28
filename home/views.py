@@ -211,3 +211,64 @@ def sell_create(request):
         "forms": forms
     }
     return render(request, 'sell/sell_create.html', context=context)
+
+#staff
+
+
+def staff_view(request):
+    staffs = Staff.objects.filter(is_deleted=False)
+    staff_payments = Staff_payment.objects.filter(is_deleted=False)
+    staff_works = Staff_work .objects.filter(is_deleted=False)
+    context = {
+        'staffs':staffs,
+        'staff_payments':staff_payments,
+        'staff_works':staff_works
+        
+    }
+    return render(request, 'staff/staff.html',context=context) 
+
+def staff_update(request, pk):
+    staffs = Staff.objects.get(pk=pk)
+    if request.method == "POST":
+        forms = StaffForm(request.POST, instance=staffs)
+        if forms.is_valid():
+            forms.save()
+            return redirect('staff_view')
+    else:
+        forms = StaffForm(instance=staffs)
+    
+    context = {
+        'forms': forms
+    }
+    return render(request, 'staff/staff_update.html', context=context)
+
+def staff_delete(request, pk):
+    staffs = Staff.objects.get(pk=pk)
+    staffs.is_deleted = True
+    staffs.save()
+    return redirect('staff_view')
+
+#income_calc
+
+def income_calc_view(request):
+    
+    expences = Expence.objects.filter(is_deleted=False)
+    sells = Sell.objects.filter(is_deleted=False)
+    outputs = Output.objects.filter(is_deleted=False)
+    staff_payments = Staff_payment.objects.filter(is_deleted=False)
+
+# Calculate sums
+    sell_sum = sum(sell.total_price for sell in sells)
+    expence_sum = sum(expence.total_price for expence in expences)
+    output_sum = sum(output.price for output in outputs)
+    staff_payment_sum = sum(payment.price for payment in staff_payments)
+
+    context = {
+    'expence_sum': expence_sum,
+    'sell_sum': sell_sum,
+    'output_sum': output_sum,
+    'staff_payment_sum': staff_payment_sum,
+    'profit': sell_sum - (expence_sum + output_sum + staff_payment_sum),
+}
+
+    return render(request, 'income_calc.html', context=context)
