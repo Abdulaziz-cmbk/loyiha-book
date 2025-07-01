@@ -248,6 +248,21 @@ def staff_delete(request, pk):
     staffs.save()
     return redirect('staff_view')
 
+def staff_create(request):
+
+    if request.method == "POST":
+        forms = StaffForm(request.POST, request.FILES)
+        if forms.is_valid():
+            forms.save()
+            return redirect('staff_view')
+    else:
+        forms = StaffForm()
+    context = {
+        "forms": forms
+    }
+    return render(request, 'staff/staff_create.html', context=context)
+
+
 #income_calc
 
 def income_calc_view(request):
@@ -272,3 +287,24 @@ def income_calc_view(request):
 }
 
     return render(request, 'income_calc.html', context=context)
+
+def staff_payment_update(request, pk):
+    staffs = Staff_payment.objects.get(pk=pk)
+    if request.method == "POST":
+        forms = Staff_paymentForm(request.POST, instance=staffs)
+        if forms.is_valid():
+            forms.save()
+            return redirect('staff_view')
+    else:
+        forms = Staff_paymentForm(instance=staffs)
+    
+    context = {
+        'forms': forms
+    }
+    return render(request, 'staff/staff_payment_upgrade.html', context=context)
+
+def staff_payment_delete(request, pk):
+    staffs = Staff_payment.objects.get(pk=pk)
+    staffs.is_deleted = True
+    staffs.save()
+    return redirect('staff_view')

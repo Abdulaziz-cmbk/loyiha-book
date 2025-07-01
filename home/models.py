@@ -96,7 +96,7 @@ class Staff(models.Model):
     birthdate = models.DateField()
     gender  = models.ForeignKey(to=References, on_delete=models.CASCADE, related_name="Staff_gender_references")
     created_at = models.DateField()
-    balance = models.FloatField(verbose_name="balansni kiriting")
+    balance = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name="balansni kiriting")
     is_deleted = models.BooleanField(default=False)
 
 

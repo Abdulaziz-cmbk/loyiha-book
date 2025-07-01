@@ -86,7 +86,7 @@ class ExpenceForms(forms.ModelForm):
                 'class': 'form-control',
                 'step': '0.01',
                 'readonly': False,  # Foydalanuvchi o'zgartirmasligi uchun
-                'placeholder': 'Jami narx (avtomatik hisoblanadi)'
+                
             }),
             'description': forms.Textarea(attrs={
                 'class': 'form-control',
@@ -127,7 +127,7 @@ class SellForms(forms.ModelForm):
                 'class': 'form-control',
                 'step': '0.01',
                 'readonly': False,  # Foydalanuvchi o'zgartirmasligi uchun
-                'placeholder': 'Jami narx (avtomatik hisoblanadi)'
+                
             }),
             'description': forms.Textarea(attrs={
                 'class': 'form-control',
@@ -139,7 +139,7 @@ class SellForms(forms.ModelForm):
 class StaffForm(forms.ModelForm):
     class Meta:
         model = Staff
-        fields = '__all__'
+        fields = ['full_name', 'phone_number', 'email', 'birthdate','gender', 'created_at']
         widgets = {
             'full_name': forms.TextInput(attrs={
                 'class': 'form-control',
@@ -166,4 +166,27 @@ class StaffForm(forms.ModelForm):
             }),
         }
         
-        
+class Staff_paymentForm(forms.ModelForm):
+    class Meta:
+        model = Staff_payment
+        fields = ['staff', 'price', 'created_at']
+        widgets = {
+            'staff': forms.Select(attrs={
+                'class': 'form-control',
+            }),
+            'price': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'To‘lov summasi',
+                'step': '0.01',
+                'min': '0'
+            }),
+            'created_at': forms.DateInput(attrs={
+                'class': 'form-control',
+                'type': 'date'
+            }),
+        }
+        labels = {
+            'staff': 'Hodim',
+            'price': 'To‘lov miqdori',
+            'created_at': 'To‘lov sanasi',
+        }

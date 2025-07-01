@@ -36,6 +36,9 @@ urlpatterns = [
     path('staff', views.staff_view, name='staff_view'),
     path('staff/update/<int:pk>', views.staff_update, name='staff_update'),
     path('staff/delete/<int:pk>', views.staff_delete, name='staff_delete'),
+    path("staff/create",views.staff_create, name="staff_create"),
+    path('staff_payment/update/<int:pk>', views.staff_payment_update, name='staff_payment_update'),
+    path('staff_payment/delete/<int:pk>', views.staff_payment_delete, name='staff_payment_delete'),
     
     #income_calc
     path('income_calc/', views.income_calc_view, name='income_calc'),
